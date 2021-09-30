@@ -1,0 +1,72 @@
+#!/bin/awk -f 
+# run with ./parsingScript <filename>
+# Awk program that parses a CSV file for specific
+# real estate info and outputs the info to an HTML 
+# file to be viewed in a browser. The particular info 
+# includes date, subdivision, lot, block, and value.
+#
+# @author Trevor Smith
+
+# Build the start of the HTML file, establishing a title, heading,
+# and the table column headers
+BEGIN {
+	print "<html>\n\n" > "index.html"
+	print "<head>\n" >> "index.html"
+
+	# Title
+	print "<title>Single Family Dwellings</title>\n" >> "index.html"
+	print "</head>\n\n" >> "index.html"
+	print "<body>\n" >> "index.html"
+	
+	# Heading
+	print "<h1>Single Family Dwellings</h1>\n\n" >> "index.html"
+	print "<table style=\"width:100%\">\n" >> "index.html"
+	print "<tr>\n" >> "index.html"
+	
+	# Table column headers
+	print "\t<th align=\"left\">DATE</th>\n" >> "index.html"
+	print "\t<th align=\"left\">SUBDIVISION</th>\n" >> "index.html"
+	print "\t<th align=\"left\">LOT</th>\n" >> "index.html"
+	print "\t<th align=\"left\">BLOCK</th>\n" >> "index.html"
+	print "\t<th align=\"left\">VALUE</th>\n" >> "index.html"
+	print "</tr>\n" >> "index.html"
+
+	# define divisions between cells - GAWK manual 4.7
+	FPAT = "([^,]+)|(\"[^\"]+\")"
+}
+
+# Search the file, based upon the division parameters set above, 
+# and searches for single-family dwellings
+{
+	# if we find a single family dwelling
+	if(tolower($3) ~ /^single family dwelling/) {
+		
+		print "<tr>" >> "index.html"
+		for(i=1; i<= NF; i++) {
+			if(i==1) {
+				printf("\t<td>%s</td>\n", $i) >> "index.html"
+			}
+			if(i==5) {
+				printf("\t<td>%s</td>\n", $i) >> "index.html"
+			}
+			if(i==6) {
+				printf("\t<td>%s</td>\n", $i) >> "index.html"
+			}
+			if(i==7) {
+				printf("\t<td>%s</td>\n", $i) >> "index.html"
+			}
+			if(i==8) {
+				printf("\t<td>%s</td>\n", $i) >> "index.html"
+			}
+		}	
+
+		# Ends data input
+		print "</tr>\n" >> "index.html"
+	}
+}
+
+END {
+	print "</table>\n\n" >> "index.html"
+	print "</body>\n" >> "index.html"
+	print "</html>\n" >> "index.html"
+}
