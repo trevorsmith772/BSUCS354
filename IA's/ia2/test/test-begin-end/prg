@@ -1,0 +1,1 @@
+begin x = 10; x = 11 end; wr x

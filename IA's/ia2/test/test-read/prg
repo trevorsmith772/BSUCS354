@@ -1,0 +1,4 @@
+rd x;
+rd y;
+y = x + y;
+wr y
